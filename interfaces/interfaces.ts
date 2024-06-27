@@ -1,9 +1,10 @@
 // ------------------- SEM INTERFACES:
 
-// function saudacoes(pessoa: any) { 
+// ----------- ANONYMOUS OBJECT TYPES:
+// Um tipo de objeto anônimo é definido sem usar um tipo ou interface específica.
 function saudacoes (pessoa: {nome: string, idade: number}) { 
-                    // definindo pessoa que tem como tipo um objeto com atributo nome (tipo string) e idade (tipo number)
-                    // e idade do tipo number
+                    // definindo pessoa que tem como tipo um objeto com atributos 
+                    // nome (tipo string) e idade (tipo number)
     console.log("Olá, sou " + pessoa.nome + " e tenho " + pessoa.idade + " anos!");
 } 
 
@@ -36,6 +37,23 @@ const pessoa2 = {
 mudarIdade(pessoa2)
 saudacoes(pessoa2)
 
+console.log("--------------------------------------------------------------------------------");
+
+
+// ======================  INTERFACES: ======================
+// Na criação de interfaces, estamos criando um contrato de implementação para as classes!
+// (Ver a implementação da class Gerente )
+
+//                  >>>>>>>>>>    Não confundir interface com type     <<<<<<<<<<<< 
+// --------------> Use interfaces quando quiser código Orientado a Objetos!
+// --------------> Use o type quando precisar definir um tipo mais complexo que não seja um tipo primitivo.
+
+// interfaces definem a forma de um objeto
+// (Ver const developer: Funcionario  em interfaces.ts )
+
+// Extensibilidade: Interfaces tem a propriedade de Extensibilidade. Você pode adicionar novas propriedades a uma interface existente
+// Herança: Interfaces podem estender outras interfaces.
+
 
 // ------------------- INTERFACES (COM OBJETOS):
 // Interfaces podem criar tipos personalizados e definir contratos no TypeScript.
@@ -47,9 +65,7 @@ interface Veiculo {
     modelo: string
     ano: number
     kilometragem: number
-
-    // atributo opcional  ----> ?:
-    unicoDono?: boolean 
+    unicoDono?: boolean // atributo opcional  ----> ?:
 }
 
 function apresentarCarro (carro: Veiculo) {
@@ -65,29 +81,45 @@ function alterarKm (carro: Veiculo) {
     carro.kilometragem = carro.kilometragem + 2000
 }
 
-// o objeto carro1 adere a interface Veiculo
+// criação do objeto carro1 sem passar o tipo Veiculo. Sem usar as funcionalidades do TS.
 const carro1 = { 
     marca: 'VW', 
     modelo: 'Polo', 
     ano: 2021, 
-    kilometragem: 35000
+    kilometragem: 35000,
 
     // não foi passado se é unicoDono, pois é opcional
+
+    // aqui não teremos erro, pois não definimos carro1 sendo do tipo Veiculo!
+    cor: 'vermelho',
+
+    // coisas desse tipo podem causar confusão, como pode exemplo:
+    quilometragem: 30000 // perceba que agora temos kilometragem e quilometragem
 }
 
 apresentarCarro(carro1)
 alterarKm(carro1)
 apresentarCarro(carro1)
 
+console.log(carro1.cor); // pode ser problemático!
+console.log(carro1.kilometragem);
+console.log(carro1.quilometragem); // pode ser problemático!
 
-// Aqui temos um erro, pois 'cor' não existe na interface Veiculo.
-// const carro2: Veiculo = { 
-//     marca: 'Fiat', 
-//     modelo: 'Palio', 
-//     ano: 2014, 
-//     kilometragem: 44000,
-//     cor: 'branco' // 'cor' does not exist in type 'Veiculo'.
-// }
+
+
+// Se tentarmos criar um objeto carro2 do tipo Veiculo, e adicionarmos uma cor, 
+// teremos um erro, pois 'cor' não existe na interface Veiculo: 
+
+const carro2: Veiculo = { 
+    marca: 'Fiat', 
+    modelo: 'Palio', 
+    ano: 2014, 
+    kilometragem: 44000,
+    //cor: 'branco' // ---------------> 'cor' does not exist in type 'Veiculo'.
+    //quilometragem: 50000 // ----------> 'quilometragem' does not exist in type 'Veiculo'
+}
+
+console.log("--------------------------------------------------------------------------------");
 
 
 // ------------------- MÉTODOS DAS INTERFACES:
@@ -110,6 +142,8 @@ const developer: Funcionario = {
 
 console.log('A PLR do ' + developer.nome + ' é de ' + developer.calculaPLR());
 
+
+console.log("--------------------------------------------------------------------------------");
 
 
 // ------------------- USANDO INTERFACES (COM CLASSES):
@@ -139,4 +173,5 @@ gerente001.tempoComoGerente = 3
 console.log('---> tempo como gerente => '+ gerente001.tempoComoGerente + ' anos');
 
 
+console.log("--------------------------------------------------------------------------------");
 

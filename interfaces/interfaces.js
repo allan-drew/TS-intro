@@ -1,9 +1,10 @@
 "use strict";
 // ------------------- SEM INTERFACES:
-// function saudacoes(pessoa: any) { 
+// ----------- ANONYMOUS OBJECT TYPES:
+// Um tipo de objeto anônimo é definido sem usar um tipo ou interface específica.
 function saudacoes(pessoa) {
-    // definindo pessoa que tem como tipo um objeto com atributo nome (tipo string) e idade (tipo number)
-    // e idade do tipo number
+    // definindo pessoa que tem como tipo um objeto com atributos 
+    // nome (tipo string) e idade (tipo number)
     console.log("Olá, sou " + pessoa.nome + " e tenho " + pessoa.idade + " anos!");
 }
 function mudarIdade(pessoa) {
@@ -30,6 +31,7 @@ const pessoa2 = {
 };
 mudarIdade(pessoa2);
 saudacoes(pessoa2);
+console.log("--------------------------------------------------------------------------------");
 function apresentarCarro(carro) {
     console.log('Este é o ' + carro.modelo +
         ' da marca ' + carro.marca +
@@ -40,17 +42,35 @@ function apresentarCarro(carro) {
 function alterarKm(carro) {
     carro.kilometragem = carro.kilometragem + 2000;
 }
-// o objeto carro1 adere a interface Veiculo
+// criação do objeto carro1 sem passar o tipo Veiculo. Sem usar as funcionalidades do TS.
 const carro1 = {
     marca: 'VW',
     modelo: 'Polo',
     ano: 2021,
-    kilometragem: 35000
+    kilometragem: 35000,
     // não foi passado se é unicoDono, pois é opcional
+    // aqui não teremos erro, pois não definimos carro1 sendo do tipo Veiculo!
+    cor: 'vermelho',
+    // coisas desse tipo podem causar confusão, como pode exemplo:
+    quilometragem: 30000 // perceba que agora temos kilometragem e quilometragem
 };
 apresentarCarro(carro1);
 alterarKm(carro1);
 apresentarCarro(carro1);
+console.log(carro1.cor); // pode ser problemático!
+console.log(carro1.kilometragem);
+console.log(carro1.quilometragem); // pode ser problemático!
+// Se tentarmos criar um objeto carro2 do tipo Veiculo, e adicionarmos uma cor, 
+// teremos um erro, pois 'cor' não existe na interface Veiculo: 
+const carro2 = {
+    marca: 'Fiat',
+    modelo: 'Palio',
+    ano: 2014,
+    kilometragem: 44000,
+    //cor: 'branco' // ---------------> 'cor' does not exist in type 'Veiculo'.
+    //quilometragem: 50000 // ----------> 'quilometragem' does not exist in type 'Veiculo'
+};
+console.log("--------------------------------------------------------------------------------");
 const developer = {
     nome: 'Jão',
     salario: 8000,
@@ -60,6 +80,7 @@ const developer = {
     }
 };
 console.log('A PLR do ' + developer.nome + ' é de ' + developer.calculaPLR());
+console.log("--------------------------------------------------------------------------------");
 // ------------------- USANDO INTERFACES (COM CLASSES):
 class Gerente {
     constructor() {
@@ -81,3 +102,4 @@ console.log('---> salario do gerente => ' + gerente001.salario);
 console.log('---> PLR do gerente => ' + gerente001.calculaPLR());
 gerente001.tempoComoGerente = 3;
 console.log('---> tempo como gerente => ' + gerente001.tempoComoGerente + ' anos');
+console.log("--------------------------------------------------------------------------------");
