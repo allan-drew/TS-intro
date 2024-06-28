@@ -17,8 +17,8 @@ console.log(compra01.volume);
 // -------------  01 
 // No caso de atribuirmos uma quantidade, vemos que os atributos privados não vão
 // deixar a alteração acontecer....
-// ENTRETANTO, com o JS, só conseguiremos perceber o erro em RUNTIME
-// compra01.quantidade = 25 // ERROR: Radonly property. Trata-se de um get
+// ENTRETANTO, com o JS, só conseguiremos perceber o erro em RUNTIME (no navegador)
+// compra01.quantidade = 25 // ---> no navegador: ERROR: Radonly property. Trata-se de um get
 
 // ------------- 02 
 // Adicionando propriedade dinamicamente ao código JS! Não dá erro, o que pode confundir o desenvolvedor
